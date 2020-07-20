@@ -6,7 +6,7 @@ class CircularQueue:
 
     # -------------------------- nested Node class --------------------------
     class _Node:
-        """Lightweight class for storing a singly linked node."""
+        """Lightweight, nonpublic class for storing a singly linked node."""
         __slots__ = '_element', '_next'         # streamline memory usage
 
         def __init__(self, element, next):      # initialize node's fields
