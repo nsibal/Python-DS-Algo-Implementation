@@ -1,10 +1,19 @@
 from ds.exception.empty import Empty
-from ds.node import Node
 
 
 class LinkedQueue:
     """FIFO queue implementation using a singly linked list for storage."""
 
+    # -------------------------- nested Node class --------------------------
+    class _Node:
+        """Lightweight class for storing a singly linked node."""
+        __slots__ = '_element', '_next'         # streamline memory usage
+
+        def __init__(self, element, next):      # initialize node's fields
+            self._element = element             # reference to user's element
+            self._next = next                   # reference to next node
+
+    # ---------------------------- queue methods ----------------------------
     def __init__(self):
         """Create an empty queue."""
         self._head = None                       # reference to the head node
@@ -26,7 +35,7 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise Empty('Queue is empty')
-        return self._head.element               # front aligned with head of the list
+        return self._head._element              # front aligned with head of the list
 
     def dequeue(self):
         """Remove and return the first element of the queue (i.e. FIFO).
@@ -35,8 +44,8 @@ class LinkedQueue:
         """
         if self.is_empty():
             raise Empty('Queue is empty')
-        element = self._head.element
-        self._head = self._head.next
+        element = self._head._element
+        self._head = self._head._next
         self._size -= 1
         if self._size == 0:                     # special case as queue is empty
             self._tail = None                   # removed head had been the tail
@@ -44,10 +53,10 @@ class LinkedQueue:
 
     def enqueue(self, e):
         """Add element e to the back of the queue."""
-        node = Node(e, None)                    # node will be the new tail node
+        node = self._Node(e, None)              # node will be the new tail node
         if self.is_empty():
             self._head = node                   # special case: previously empty
         else:
-            self._tail.next = node
+            self._tail._next = node
         self._tail = node                       # update reference to tail node
         self._size += 1

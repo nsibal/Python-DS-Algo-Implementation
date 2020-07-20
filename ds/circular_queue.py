@@ -1,10 +1,19 @@
 from ds.exception.empty import Empty
-from ds.node import Node
 
 
 class CircularQueue:
     """Queue implementation using circularly linked list for storage."""
 
+    # -------------------------- nested Node class --------------------------
+    class _Node:
+        """Lightweight class for storing a singly linked node."""
+        __slots__ = '_element', '_next'         # streamline memory usage
+
+        def __init__(self, element, next):      # initialize node's fields
+            self._element = element             # reference to user's element
+            self._next = next                   # reference to next node
+
+    # ---------------------------- queue methods ----------------------------
     def __init__(self):
         """Create an empty queue."""
         self._tail = None                       # will represent tail of queue
@@ -25,8 +34,8 @@ class CircularQueue:
         """
         if self.is_empty():
             raise Empty('Queue is empty')
-        head = self._tail.next
-        return head.element
+        head = self._tail._next
+        return head._element
 
     def dequeue(self):
         """Remove and return the first element of the queue (i.e. FIFO).
@@ -35,26 +44,26 @@ class CircularQueue:
         """
         if self.is_empty():
             raise Empty('Queue is empty')
-        oldhead = self._tail.next
+        oldhead = self._tail._next
         if self._size == 1:                     # removing only element
             self._tail = None                   # queue becomes empty
         else:
-            self._tail.next = oldhead.next      # bypass the old head
+            self._tail._next = oldhead._next    # bypass the old head
         self._size -= 1
-        return oldhead.element
+        return oldhead._element
 
     def enqueue(self, e):
         """Add element e to the back of the queue."""
-        newest = Node(e, None)                  # node will be the new tail node
+        newest = self._Node(e, None)            # node will be the new tail node
         if self.is_empty():
-            newest.next = newest                # initialize circularly
+            newest._next = newest               # initialize circularly
         else:
-            newest.next = self._tail.next       # new node points to head
-            self._tail.next = newest            # old tail points to new node
+            newest._next = self._tail._next     # new node points to head
+            self._tail._next = newest           # old tail points to new node
         self._tail = newest                     # new node becomes the tail
         self._size += 1
 
     def rotate(self):
         """Rotate front elements to the back of the queue."""
         if self._size > 0:
-            self._tail = self._tail.next        # old heads becomes new tail
+            self._tail = self._tail._next       # old heads becomes new tail

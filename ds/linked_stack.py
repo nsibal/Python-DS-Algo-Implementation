@@ -1,10 +1,19 @@
 from ds.exception.empty import Empty
-from ds.node import Node
 
 
 class LinkedStack:
     """LIFO Stack implementation using a singly linked list for storage."""
 
+    # -------------------------- nested Node class --------------------------
+    class _Node:
+        """Lightweight class for storing a singly linked node."""
+        __slots__ = '_element', '_next'         # streamline memory usage
+
+        def __init__(self, element, next):      # initialize node's fields
+            self._element = element             # reference to user's element
+            self._next = next                   # reference to next node
+
+    # ---------------------------- stack methods ----------------------------
     def __init__(self):
         """Create an empty stack."""
         self._head = None                       # reference to the head node
@@ -25,11 +34,11 @@ class LinkedStack:
         """
         if self.is_empty():
             raise Empty('Stack is empty')
-        return self._head.element               # top of stack is at head of list
+        return self._head._element              # top of stack is at head of list
 
     def push(self, e):
         """Add element e to the top of the stack."""
-        self._head = Node(e, self._head)        # create and link a new node
+        self._head = self._Node(e, self._head)  # create and link a new node
         self._size += 1
 
     def pop(self):
@@ -39,7 +48,7 @@ class LinkedStack:
         """
         if self.is_empty():
             raise Empty('Stack is empty')
-        element = self._head.element
-        self._head = self._head.next            # bypass the former top node
+        element = self._head._element
+        self._head = self._head._next           # bypass the former top node
         self._size -= 1
         return element
