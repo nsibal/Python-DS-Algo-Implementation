@@ -92,7 +92,7 @@ class Deque:
             raise Empty('Queue is empty')
         back = (self._front + self._size - 1) % len(self._data)
         element = self._data[back]
-        self._data[back] = None                      # help garbage collection
+        self._data[back] = None                             # help garbage collection
         self._size -= 1
         self._shrink()
         return element
