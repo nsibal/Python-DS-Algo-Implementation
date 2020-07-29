@@ -109,18 +109,17 @@ class PositionalList(_DoublyLinkedBase):
         original._element = e                       # replace with new element
         return old_value                            # return the old element value
 
-
-def insertion_sort(p_list):
-    """Sort PositionalList of comparable elements into non-decreasing order."""
-    marker = p_list.first()
-    while marker != p_list.last():
-        pivot = p_list.after(marker)                # next item to place
-        value = pivot.element()
-        if value > marker.element():                # pivot is already sorted
-            marker = pivot                          # pivot becomes the new marker
-        else:                                       # must relocate pivot
-            walk = marker                           # find leftmost item greater than value
-            while walk != p_list.first() and p_list.before(walk).element() > value:
-                walk = p_list.before(walk)
-            p_list.delete(pivot)
-            p_list.add_before(walk, value)          # reinsert value before walk
+    def sort(self):
+        """Sort the list using Insertion Sort"""
+        marker = self.first()
+        while marker != self.last():
+            pivot = self.after(marker)              # next item to place
+            value = pivot.element()
+            if value > marker.element():            # pivot is already sorted
+                marker = pivot                      # pivot becomes the new marker
+            else:                                   # must relocate marker
+                walk = marker                       # find leftmost item greater than value
+                while walk != self.first() and self.before(walk).element() > value:
+                    walk = self.before(walk)
+                self.delete(pivot)
+                self.add_before(walk, value)        # reinsert value before walk
