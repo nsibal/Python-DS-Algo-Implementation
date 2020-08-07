@@ -1,3 +1,6 @@
+from ds.linked_queue import LinkedQueue
+
+
 class Tree:
     """Abstract base class representing a tree structure."""
 
@@ -15,7 +18,7 @@ class Tree:
 
         def __ne__(self, other):
             """Return True if other does not represent the same location."""
-            return not (self == other)              # opposite of __eq__
+            return not (self == other)                  # opposite of __eq__
 
     # --------------- abstract methods that concrete subclass must implement --------------
     def root(self):
@@ -70,4 +73,53 @@ class Tree:
         """
         if p is None:
             p = self.root()
-        return self._subtree_height(p)              # start _subtree_height recursion
+        return self._subtree_height(p)                  # start _subtree_height recursion
+
+    def __iter__(self):
+        """Generate an iteration of the tree's elements."""
+        for p in self.positions():                      # use same order as positions()
+            yield p.element()                           # but yield each element
+
+    def positions(self):
+        """Generate an iteration of the tree's positions."""
+        return self.preorder()                          # return entire preorder iteration
+
+    def preorder(self):
+        """Generate a preorder iteration of positions in the tree."""
+        if self.is_empty():
+            return
+        for p in self._subtree_preorder(self.root()):   # start recursion
+            yield p
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p."""
+        yield p                                         # visit p before its subtrees
+        for c in self.children(p):                      # for each child c
+            for other in self._subtree_preorder(c):     # do preorder of c's subtree
+                yield other                             # yielding each to our caller
+
+    def postorder(self):
+        """Generate a postorder iteration of positions in the tree."""
+        if self.is_empty():
+            return
+        for p in self._subtree_postorder(self.root()):  # start recursion
+            yield p
+
+    def _subtree_postorder(self, p):
+        """Generate a postorder iteration of positions in subtree rooted at p."""
+        for c in self.children(p):                      # for each child c
+            for other in self._subtree_preorder(c):     # do postorder of c's subtree
+                yield other                             # yielding each to our caller
+        yield p                                         # visit p after its subtrees
+
+    def breadthfirst(self):
+        """Generate a breadth-first iteration of the positions of the tree."""
+        if self.is_empty():
+            return
+        queue = LinkedQueue()                           # know positions not yielded yet
+        queue.enqueue(self.root())                      # starting with the root
+        while not queue.is_empty():
+            p = queue.dequeue()                         # remove from front of the queue
+            yield p                                     # report this position
+            for c in self.children(p):
+                queue.enqueue(c)                        # add children to back of the queue
