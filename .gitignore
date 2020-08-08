@@ -1,5 +1,8 @@
-*.py[cod]                   # Will match .pyc, .pyo and .pyd files.
-__pycache__/                # Exclude the whole folder
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
 test.py
 job.py
 dummy.py
