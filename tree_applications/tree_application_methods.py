@@ -39,9 +39,9 @@ def print_preorder():
 
 def preorder_indent(t, p, d):
     """Print preorder representation of subtree of Tree t rooted at Position p at Depth d."""
-    print(4 * d * ' ' + str(p.element()))  # use depth for indentation
+    print(4 * d * ' ' + str(p.element()))                       # use depth for indentation
     for c in t.children(p):
-        preorder_indent(t, c, d + 1)  # child depth is d+1
+        preorder_indent(t, c, d + 1)                            # child depth is d+1
 
 
 def print_preorder_indent():
@@ -79,11 +79,11 @@ def print_preorder_indent():
 
 def preorder_label(t, p, d, path):
     """Print labeled representation of subtree of Tree t rooted at Position p at Depth d."""
-    label = '.'.join(str(j + 1) for j in path)  # displayed labels are one-indexed
+    label = '.'.join(str(j + 1) for j in path)                  # displayed labels are one-indexed
     print(4 * d * ' ' + label, p.element())
-    path.append(0)  # path entries are zero-indexed
+    path.append(0)                                              # path entries are zero-indexed
     for c in t.children(p):
-        preorder_label(t, c, d + 1, path)  # child depth is d+1
+        preorder_label(t, c, d + 1, path)                       # child depth is d+1
         path[-1] += 1
     path.pop()
 
@@ -116,16 +116,16 @@ def print_preorder_label():
 
 def parenthesize(t, p):
     """Print parenthesized representation of subtree of Tree t rooted at Position p."""
-    print(p.element(), end='')  # use of end avoids trailing newline
+    print(p.element(), end='')                                  # use of end avoids trailing newline
     if t.is_leaf(p):
         return
     first_time = True
     for c in t.children(p):
-        sep = ' (' if first_time else ', '  # determine proper separator
+        sep = ' (' if first_time else ', '                      # determine proper separator
         print(sep, end='')
-        first_time = False  # any future passes will not be the first
-        parenthesize(t, c)  # recur on child
-    print(')', end='')  # include closing parenthesis
+        first_time = False                                      # any future passes will not be the first
+        parenthesize(t, c)                                      # recur on child
+    print(')', end='')                                          # include closing parenthesis
 
 
 def print_parenthesize():
