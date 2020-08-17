@@ -33,7 +33,8 @@ class HeapPriorityQueue(PriorityQueueBase):                             # base c
 
     def _downheap(self, j):
         if not self._has_left(j):
-            # it is not possible for a heap to have only right and no left child
+            # since we are dealing with indexes of an array, it won't be possible for an array to have
+            # a right without having a left because index of right > index of left.
             return
         left = self._left(j)
         small_child = left                                              # although right may be smaller
