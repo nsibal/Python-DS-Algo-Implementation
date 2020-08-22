@@ -4,7 +4,7 @@ from advanced_ds.map_base import MapBase
 class UnsortedTableMap(MapBase):
     """Map implementation using an unordered list."""
 
-    def __int__(self):
+    def __init__(self):
         """Create an empty map."""
         self._table = []                                    # list of objects of _Item
 
@@ -37,5 +37,6 @@ class UnsortedTableMap(MapBase):
         return len(self._table)
 
     def __iter__(self):
+        """Generate iteration of the map's keys."""
         for item in self._table:
             yield item._key                                 # yield the KEY
