@@ -6,3 +6,4 @@ __pycache__/
 test.py
 job.py
 dummy.py
+.DS_Store
