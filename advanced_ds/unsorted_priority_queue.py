@@ -1,5 +1,5 @@
 from advanced_ds.priority_queue_base import PriorityQueueBase
-from ds.exception.empty import Empty
+from exception.empty import Empty
 from ds.positional_list import PositionalList
 
 

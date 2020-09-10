@@ -1,4 +1,4 @@
-from tree_applications.euler_tour import EulerTour
+from applications.euler_tour import EulerTour
 
 
 class BinaryEulerTour(EulerTour):

@@ -1,4 +1,4 @@
-from ds.exception.empty import Empty
+from exception.empty import Empty
 
 
 class LinkedQueue:

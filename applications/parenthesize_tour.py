@@ -1,5 +1,5 @@
 from ds.linked_tree import LinkedTree
-from tree_applications.euler_tour import EulerTour
+from applications.euler_tour import EulerTour
 
 
 class Parenthesize(EulerTour):

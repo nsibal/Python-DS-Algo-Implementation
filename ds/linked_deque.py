@@ -1,5 +1,5 @@
 from ds.doubly_linked_base import _DoublyLinkedBase
-from ds.exception.empty import Empty
+from exception.empty import Empty
 
 
 class LinkedDeque(_DoublyLinkedBase):                                   # note the use of inheritance
