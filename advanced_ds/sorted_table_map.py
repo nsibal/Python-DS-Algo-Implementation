@@ -20,7 +20,7 @@ class SortedTableMap(MapBase):
         if k == self._table[mid]._key:
             return mid                                                  # found exact match
         elif k < self._table[mid]._key:
-            return self._find_index(k, low, mid + 1)                    # Note: may return mid
+            return self._find_index(k, low, mid - 1)                    # Note: may return mid
         else:
             return self._find_index(k, mid + 1, high)                   # answer is right of mid
 
@@ -108,12 +108,12 @@ class SortedTableMap(MapBase):
     def find_le(self, k):
         """Return (key, value) pair with greatest key strictly less than k."""
         j = self._find_index(k, 0, len(self._table) - 1)                # j's key >= k
-        if j <= 0:
+        if j < len(self._table) and self._table[j]._key == k:
+            return (self._table[j]._key, self._table[j]._value)         # exact match
+        elif j > 0:
+            return (self._table[j - 1]._key, self._table[j - 1]._value) # Note use of j-1
+        else:
             return None
-        if j >= len(self._table) or self._table[j]._key != k:
-            j -= 1                                                      # decrement if not matched
-        item = self._table[j]
-        return item._key, item._value
 
     def find_range(self, start, stop):
         """Iterate all (key value) pairs such that start <= key < stop.

@@ -41,7 +41,7 @@ class BinaryTree(Tree):
     # override inherited version to make inorder the default
     def positions(self):
         """Generate an iteration of the tree's positions."""
-        return self.inorder()  # make inorder the default
+        return self.inorder()                           # make inorder the default
 
     def inorder(self):
         """Generate an inorder iteration of positions in the tree."""
