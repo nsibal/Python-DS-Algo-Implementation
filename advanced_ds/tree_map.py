@@ -154,7 +154,7 @@ class TreeMap(LinkedBinaryTree, MapBase):
                 self._rebalance_access(p)                           # hook for balanced tree subclass
                 return
             item = self._Item(key, value)
-            if p.key() < k:
+            if p.key() < key:
                 leaf = self._add_right(p, item)                     # inherited from LinkedBinaryTree
             else:
                 leaf = self._add_left(p, item)                      # inherited from LinkedBinaryTree
