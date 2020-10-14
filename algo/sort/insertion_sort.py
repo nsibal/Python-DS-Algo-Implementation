@@ -15,13 +15,13 @@
 
 
 def insertion_sort(lst):
-    for i in range(1, len(lst)):
-        curr = lst[i]
-        j = i
-        while j > 0 and lst[j - 1] > curr:
+    for i in range(1, len(lst)):                    # from 1 to n-1
+        curr = lst[i]                               # current element to be inserted
+        j = i                                       # find correct index j for current
+        while j > 0 and lst[j - 1] > curr:          # element lst[j-1] must be after current
             lst[j] = lst[j-1]
             j -= 1
-        lst[j] = curr
+        lst[j] = curr                               # curr is now in the right place
 
 
 if __name__ == "__main__":
